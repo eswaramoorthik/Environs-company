@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>My details</h2>
+<style>
+    tr, th, td{
+        border: 1px solid black;
+        background-color: lightcyan;
+        padding: 1rem;
+        align-items: center;
+    }
+</style>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Dept</th>
+        <th>Salery</th>
+        <th>Address</th>
+        <th colspan="2">Action</th>
+    </tr>
+    {% for detail in data %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{detail[1]}}</td>
+        <td>{{detail[2]}}</td>
+        <td>{{detail[3]}}</td>
+        <td>{{detail[4]}}</td>
+        <td>{{detail[5]}}</td>
+        <td><button><a href="{{ url_for('edit', id = detail[0])}}">Edit</a></button></td>
+        <td><button><a href="{{ url_for('remove', id = detail[0])}}">Delete</a></button></td>
+    </tr>
+    {% endfor %}
+</table>
+<button><a href="{{url_for('add')}}">Add detail</a></button>
+<button><a href="{{url_for('logout')}}">Logout</a></button>
+
+
+{% endblock body%}

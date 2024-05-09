@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="col-4 mx-auto" style="border: 1px solid sandybrown; border-radius: 50px; background-color: sandybrown; padding: 3rem;">
+    <h2>Edit detail</h2><br><br>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.username.label }} {{ form.username(value=data.username) }} <br><br>
+        {{ form.age.label }} {{ form.age(value=data.age) }} <br><br>
+        {{ form.dept.label }} {{ form.dept(value=data.dept) }} <br><br>
+        {{ form.salery.label }} {{ form.salery(value=data.salery) }} <br><br>
+        {{ form.address.label }} {{ form.address(value=data.address) }} <br><br>    
+        <input type="submit" value="Edit detail">
+    </form>
+</div>
+
+{% endblock body %}

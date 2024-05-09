@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+<h1>login in</h1>
+
+{% block body %}
+<div class="col-4 mx-auto" style="border: 1px solid lightblue; border-radius: 50px; background-color: lightgoldenrodyellow; padding: 3rem;">
+    <h2>sign in</h2>
+    <form action="" method="post">
+        {{form.hidden_tag()}}
+        {{form.username.label}} {{form.username()}} <br><br>
+        {{form.password.label}} {{form.password()}} <br><br>
+        {{form.submit()}}
+    </form>
+    <div style="display: flex; align-items: center; justify-content: space-around;">
+        <p>Don't have an account? </p><a class="btn btn-success" href="{{url_for('signup')}}">Sign in</a>
+    </div>
+    
+</div>
+
+{% endblock body %}

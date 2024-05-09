@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body%}
+
+
+
+<div class="col-4 mx-auto" style="border: 1px solid lightgoldenrodyellow; border-radius: 50px; background-color: lightgoldenrodyellow; padding: 3rem;">
+    <h2>Add details</h2>
+    <form action="/add/" method="post">
+        {{form.hidden_tag()}}
+        {{form.name.label}} {{form.name()}} <br><br>
+        {{form.age.label}} {{form.age()}} <br><br>
+        {{form.dept.label}} {{form.dept()}} <br><br>
+        {{form.salery.label}} {{form.salery()}} <br><br>
+        {{form.address.label}} {{form.address()}} <br><br>
+        {{form.submit()}}
+    </form>
+</div>
+{% endblock body %}
