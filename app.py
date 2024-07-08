@@ -32,7 +32,7 @@ def isloggedin():
 
 @app.route('/')
 def home():
-    return render_template('navbar.html')     
+    return render_template('base.html')     
 
 class User:
     def __init__(self, id, username, password) :
@@ -100,7 +100,6 @@ def login():
         cur = mysql.connection.cursor()
         cur.execute('select id, name, password from signup where name = %s', (username,))
         login_id = cur.fetchone()
-        print(login_id)
         cur.close()
         if login_id:
             save_password = login_id[2]
@@ -144,20 +143,29 @@ def edit(id):
     cur.execute("SELECT * FROM employee WHERE id = %s", (id,))
     data = cur.fetchone()
     cur.close()
-    form = edit_form(obj= data)
-    if form.validate_on_submit():
-        Name =   form.username.data
-        Age = form.age.data
-        Dept = form.dept.data
-        Salery = form.salery.data
-        Address = form.address.data
+
+    if not data:
+        flash('Employee not found', 'danger')
+        return redirect(url_for('table'))
+
+    form = edit_form(request.form, username=data[1], age=data[2], dept=data[3], salery=data[4], address=data[5])
+
+    if request.method == 'POST' and form.validate_on_submit():
+        username = form.username.data
+        age = form.age.data
+        dept = form.dept.data
+        salery = form.salery.data
+        address = form.address.data
+
         cur = mysql.connection.cursor()
-        cur.execute('UPDATE employee SET name = %s, age = %s, dept = %s, salery = %s, address = %s WHERE id = %s', (Name, Age, Dept, Salery, Address, id))
+        cur.execute('UPDATE employee SET name = %s, age = %s, dept = %s, salery = %s, address = %s WHERE id = %s', (username, age, dept, salery, address, id))
         mysql.connection.commit()
         cur.close()
-        return redirect(url_for('table'))
-    return render_template('edit.html', form = form, data =data)
 
+        flash('Employee details updated successfully', 'success')
+        return redirect(url_for('table'))
+
+    return render_template('edit.html', form=form)
 
 @app.route("/delete/<int:id>", methods=["GET", "POST"])
 def remove(id):
